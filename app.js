@@ -332,7 +332,9 @@ function loadDemo() {
   state.token = '';
   state.minApprovals = Number(el('input-min-approvals').value || 1);
   state.includeArchived = el('input-include-archived').checked;
-  state.rows = demoRows();
+  let rows = demoRows();
+  if (!state.includeArchived) rows = rows.filter((r) => !r.archived);
+  state.rows = rows;
   state.lastRunAt = new Date();
   renderDashboard();
   showView('dashboard');

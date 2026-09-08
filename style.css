@@ -170,6 +170,8 @@ code {
 /* ===== Main / views ===== */
 .main { flex: 1; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
 .view { flex: 1; min-height: 0; }
+/* [hidden] must beat the .view-* display rules below (equal specificity, later wins by source order) */
+[hidden] { display: none !important; }
 
 /* ---- Setup view ---- */
 .view-setup { display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: var(--space-16) var(--space-6); }
@@ -298,7 +300,9 @@ code {
 .audit-table tbody tr:last-child td { border-bottom: none; }
 .audit-table tbody tr:hover { background: var(--color-surface-offset); }
 .repo-cell { display: flex; flex-direction: column; gap: 2px; }
-.repo-name { font-family: var(--font-mono); font-weight: 600; }
+.repo-name { font-family: var(--font-mono); font-weight: 600; color: var(--color-text); text-decoration: none; }
+.repo-name:hover { color: var(--color-primary); text-decoration: underline; }
+.repo-name:visited { color: var(--color-text); }
 .repo-flags { display: flex; gap: var(--space-1); }
 .mini-tag {
   font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em;
@@ -327,6 +331,13 @@ code {
   .kpi-row { grid-template-columns: repeat(2, 1fr); }
   .toolbar { flex-direction: column; align-items: stretch; }
   .toolbar-left, .toolbar-right { justify-content: space-between; }
+}
+
+@media (max-width: 560px) {
+  .topbar { flex-wrap: wrap; row-gap: var(--space-2); }
+  .brand-tag { display: none; }
+  .topbar-actions { width: 100%; justify-content: space-between; }
+  .scope-pill { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {
